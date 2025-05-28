@@ -10,10 +10,13 @@ TEMP_DB = "temp_database.db"
 
 
 def randomize_parameters(data_dict):
+    """
+    Randomly selects one parameter for component and replaces its value
+    with a randomized (parameter can randomly be set to its original value).
+    """
     for name in data_dict:
         param_keys = list(data_dict[name].keys())
         chosen_param = random.choice(param_keys)
-        # old_value = data_dict[name][chosen_param]
         data_dict[name][chosen_param] = random.choice(
             [i for i in range(1, 21)]
         )
@@ -21,6 +24,10 @@ def randomize_parameters(data_dict):
 
 @pytest.fixture(scope="session")
 def generate_randomized_db():
+    """
+    Creates a randomized copy of the original database for testing.
+    Randomizes one parameter for each component (subpoint b of point 3).
+    """
     if os.path.exists(TEMP_DB):
         os.remove(TEMP_DB)
     shutil.copyfile(ORIGINAL_DB, TEMP_DB)
@@ -38,6 +45,7 @@ def generate_randomized_db():
     hull_data = {}
     engine_data = {}
 
+    # Load component data from temp db and process it with randomize_parameters
     temp_cursor.execute(
         "SELECT weapon, reload_speed, rotational_speed, "
         "diameter, power_volley, count "
@@ -72,6 +80,7 @@ def generate_randomized_db():
         }
     randomize_parameters(engine_data)
 
+    # Update randomized values in components
     for name, params in weapon_data.items():
         temp_cursor.execute('''
             UPDATE weapons SET
@@ -98,6 +107,8 @@ def generate_randomized_db():
 
     temp_conn.commit()
     yield original_cursor, temp_cursor
+
+    # Close connections and delete temporary database
     original_conn.close()
     temp_conn.close()
     if os.path.exists(TEMP_DB):
