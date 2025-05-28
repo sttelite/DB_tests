@@ -38,7 +38,7 @@ def test_component_parameter_diff(generate_randomized_db, ship, component):
 
     # Fail if the component changed
     if temp_component_name != component_name:
-        print(f"{ship}, {temp_component_name} : expected "
+        print(f"{ship}, {temp_component_name}\n    expected "
               f"{component_name}, but got {temp_component_name}")
         assert temp_component_name == component_name
 
@@ -62,6 +62,6 @@ def test_component_parameter_diff(generate_randomized_db, ship, component):
     # Print and assert mismatched parameters
     for i, field in enumerate(fields):
         if original_values[i] != temp_values[i]:
-            print(f"{ship}, {component_name}:\n    {field}: expected "
+            print(f"{ship}, {component_name}\n    {field}: expected "
                   f"{original_values[i]}, was {temp_values[i]}")
             assert original_values[i] == temp_values[i]
