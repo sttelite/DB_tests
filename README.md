@@ -43,7 +43,7 @@ home_task/
 ## Expected Output
 
 ```
-Ship-200, engine-2:
+Ship-200, engine-2
     power: expected 14, was 6
 F...
 
