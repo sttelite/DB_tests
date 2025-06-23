@@ -1,4 +1,4 @@
-# Home Task
+# Wargaming Task
 
 ## Project Structure
 
@@ -16,7 +16,7 @@ home_task/
 ## Notes
 
 - The file `temp_database.db` is automatically created and deleted by the fixture `generate_randomized_db`.
-- The implementation corresponds to subpoint b) of point 3 from the test — randomizing one parameter of each component of the ship.
+- The implementation corresponds to subpoint b) of point 3 from the task — randomizing one parameter of each component of the ship.
 - Since the assignment does not clearly prohibit it, I assumed that a parameter can randomly be set to its original value. So on average, 1/20 tests (30 out of 600) will pass.
 
 ---
